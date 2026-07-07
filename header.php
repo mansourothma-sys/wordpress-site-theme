@@ -11,6 +11,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="البوابة الرسمية لمركز التعليم الإلكتروني بجامعة سرت، وخدمات المنصة التعليمية والدعم الفني والحوكمة.">
+    <title><?php echo esc_html((is_front_page() || is_home()) ? 'مركز التعليم الإلكتروني - جامعة سرت' : wp_get_document_title()); ?></title>
     <meta property="og:title" content="مركز التعليم الإلكتروني - جامعة سرت">
     <meta property="og:description" content="بوابة مركز التعليم الإلكتروني بجامعة سرت للدخول إلى المنصة والمقررات والخدمات الداعمة.">
     <meta property="og:type" content="website">
