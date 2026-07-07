@@ -50,9 +50,24 @@ function sirte_elc_enqueue_assets(): void
         SIRTE_ELC_VERSION
     );
 
+    wp_enqueue_style(
+        'sirte-elc-visual-upgrade',
+        get_template_directory_uri() . '/assets/css/visual-upgrade.css',
+        ['sirte-elc-main'],
+        SIRTE_ELC_VERSION
+    );
+
     wp_enqueue_script(
         'sirte-elc-main',
         get_template_directory_uri() . '/assets/js/main.js',
+        [],
+        SIRTE_ELC_VERSION,
+        true
+    );
+
+    wp_enqueue_script(
+        'sirte-elc-scroll-reveal',
+        get_template_directory_uri() . '/assets/js/scroll-reveal.js',
         [],
         SIRTE_ELC_VERSION,
         true
