@@ -13,3 +13,4 @@ deployment:
     - /bin/cp index.php $DEPLOYPATH/
     - /bin/cp style.css $DEPLOYPATH/
     - /bin/cp README.md $DEPLOYPATH/
+    - if command -v wp >/dev/null 2>&1; then wp theme activate sirte-elc --path=/home/elc1suedu/public_html; elif [ -x /usr/local/bin/wp ]; then /usr/local/bin/wp theme activate sirte-elc --path=/home/elc1suedu/public_html; fi
