@@ -71,3 +71,34 @@ function sirte_elc_document_title(array $title): array
     return $title;
 }
 add_filter('document_title_parts', 'sirte_elc_document_title');
+
+function sirte_elc_pre_document_title(string $title): string
+{
+    if (is_front_page() || is_home()) {
+        return 'مركز التعليم الإلكتروني - جامعة سرت';
+    }
+
+    return $title;
+}
+add_filter('pre_get_document_title', 'sirte_elc_pre_document_title');
+
+function sirte_elc_trim_legacy_builder_assets(): void
+{
+    if (! is_front_page() && ! is_home()) {
+        return;
+    }
+
+    $script_handles = [
+        'elementor-frontend',
+        'elementor-webpack-runtime',
+        'elementor-frontend-modules',
+        'elementor-waypoints',
+        'hfe-frontend-js',
+    ];
+
+    foreach ($script_handles as $handle) {
+        wp_dequeue_script($handle);
+        wp_deregister_script($handle);
+    }
+}
+add_action('wp_enqueue_scripts', 'sirte_elc_trim_legacy_builder_assets', 100);
