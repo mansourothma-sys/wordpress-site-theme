@@ -61,3 +61,13 @@ function sirte_elc_enqueue_assets(): void
 }
 add_action('wp_enqueue_scripts', 'sirte_elc_enqueue_assets');
 
+function sirte_elc_document_title(array $title): array
+{
+    if (is_front_page() || is_home()) {
+        $title['title'] = 'مركز التعليم الإلكتروني';
+        $title['site'] = 'جامعة سرت';
+    }
+
+    return $title;
+}
+add_filter('document_title_parts', 'sirte_elc_document_title');

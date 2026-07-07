@@ -40,14 +40,7 @@
         </button>
 
         <nav class="primary-nav" aria-label="<?php esc_attr_e('القائمة الرئيسية', 'sirte-elc'); ?>">
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'primary',
-                'menu_id' => 'primary-menu',
-                'container' => false,
-                'fallback_cb' => 'sirte_elc_default_menu',
-            ]);
-            ?>
+            <?php sirte_elc_default_menu(); ?>
         </nav>
 
         <a class="header-cta" href="<?php echo esc_url(sirte_elc_platform_url()); ?>">
@@ -73,4 +66,3 @@ function sirte_elc_default_menu(): void
     }
     echo '</ul>';
 }
-
