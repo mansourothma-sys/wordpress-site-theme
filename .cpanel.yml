@@ -1,0 +1,15 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/elc1suedu/public_html/wp-content/themes/sirte-elc
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R assets $DEPLOYPATH/
+    - /bin/cp -R inc $DEPLOYPATH/
+    - /bin/cp -R template-parts $DEPLOYPATH/
+    - /bin/cp footer.php $DEPLOYPATH/
+    - /bin/cp front-page.php $DEPLOYPATH/
+    - /bin/cp functions.php $DEPLOYPATH/
+    - /bin/cp header.php $DEPLOYPATH/
+    - /bin/cp index.php $DEPLOYPATH/
+    - /bin/cp style.css $DEPLOYPATH/
+    - /bin/cp README.md $DEPLOYPATH/
