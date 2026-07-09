@@ -9,7 +9,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('SIRTE_ELC_VERSION', '1.0.0');
+define('SIRTE_ELC_VERSION', '2.0.0');
 
 require_once get_template_directory() . '/inc/theme-data.php';
 require_once get_template_directory() . '/inc/template-tags.php';
@@ -38,7 +38,7 @@ function sirte_elc_enqueue_assets(): void
 {
     wp_enqueue_style(
         'sirte-elc-fonts',
-        'https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap',
         [],
         null
     );
@@ -57,6 +57,13 @@ function sirte_elc_enqueue_assets(): void
         SIRTE_ELC_VERSION
     );
 
+    wp_enqueue_style(
+        'sirte-elc-pages',
+        get_template_directory_uri() . '/assets/css/pages.css',
+        ['sirte-elc-visual-upgrade'],
+        SIRTE_ELC_VERSION
+    );
+
     wp_enqueue_script(
         'sirte-elc-main',
         get_template_directory_uri() . '/assets/js/main.js',
@@ -68,6 +75,14 @@ function sirte_elc_enqueue_assets(): void
     wp_enqueue_script(
         'sirte-elc-scroll-reveal',
         get_template_directory_uri() . '/assets/js/scroll-reveal.js',
+        [],
+        SIRTE_ELC_VERSION,
+        true
+    );
+
+    wp_enqueue_script(
+        'sirte-elc-interactions',
+        get_template_directory_uri() . '/assets/js/interactions.js',
         [],
         SIRTE_ELC_VERSION,
         true
@@ -95,6 +110,49 @@ function sirte_elc_pre_document_title(string $title): string
     return $title;
 }
 add_filter('pre_get_document_title', 'sirte_elc_pre_document_title');
+
+/**
+ * Handle the "اتصل بنا" form: verifies nonce + honeypot, sends an email to
+ * the support address, then redirects back with a status flag.
+ */
+function sirte_elc_handle_contact_form(): void
+{
+    $redirect = wp_get_referer() ? wp_get_referer() : home_url('/');
+
+    $nonce_ok = isset($_POST['sirte_elc_contact_nonce'])
+        && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['sirte_elc_contact_nonce'])), 'sirte_elc_contact');
+
+    $honeypot_filled = ! empty($_POST['sirte_elc_website']);
+
+    $name = isset($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : '';
+    $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+    $subject = isset($_POST['subject']) ? sanitize_text_field(wp_unslash($_POST['subject'])) : '';
+    $message = isset($_POST['message']) ? sanitize_textarea_field(wp_unslash($_POST['message'])) : '';
+
+    $is_valid = $nonce_ok && ! $honeypot_filled && $name && is_email($email) && $subject && $message;
+
+    if ($is_valid) {
+        $to = 'elcsupport@su.edu.ly';
+        $mail_subject = sprintf('[نموذج اتصل بنا] %s', $subject);
+        $body = sprintf(
+            "الاسم: %s\nالبريد الإلكتروني: %s\n\nالرسالة:\n%s",
+            $name,
+            $email,
+            $message
+        );
+        $headers = ['Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $email];
+
+        $sent = wp_mail($to, $mail_subject, $body, $headers);
+        $redirect = add_query_arg('sirte_elc_contact', $sent ? 'success' : 'error', $redirect);
+    } else {
+        $redirect = add_query_arg('sirte_elc_contact', 'error', $redirect);
+    }
+
+    wp_safe_redirect($redirect);
+    exit;
+}
+add_action('admin_post_sirte_elc_contact', 'sirte_elc_handle_contact_form');
+add_action('admin_post_nopriv_sirte_elc_contact', 'sirte_elc_handle_contact_form');
 
 function sirte_elc_trim_legacy_builder_assets(): void
 {

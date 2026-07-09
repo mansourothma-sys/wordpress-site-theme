@@ -30,6 +30,17 @@ if (! defined('ABSPATH')) {
                 <span>elcsupport@su.edu.ly</span>
             </a>
         </div>
+
+        <div class="section-more section-more-split">
+            <a class="button button-outline" href="<?php echo esc_url(sirte_elc_page_url('guides')); ?>">
+                أدلة استخدام المنصة
+                <?php echo sirte_elc_icon('arrow'); ?>
+            </a>
+            <a class="button button-outline" href="<?php echo esc_url(sirte_elc_page_url('contact')); ?>">
+                نموذج اتصل بنا
+                <?php echo sirte_elc_icon('arrow'); ?>
+            </a>
+        </div>
     </div>
 </section>
 

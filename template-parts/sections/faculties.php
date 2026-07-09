@@ -41,6 +41,13 @@ $faculties = sirte_elc_faculties();
                 </a>
             <?php endforeach; ?>
         </div>
+
+        <div class="section-more">
+            <a class="button button-outline" href="<?php echo esc_url(sirte_elc_page_url('academics')); ?>">
+                عرض جميع الكليات والمقررات
+                <?php echo sirte_elc_icon('arrow'); ?>
+            </a>
+        </div>
     </div>
 </section>
 

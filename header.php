@@ -41,7 +41,18 @@
         </button>
 
         <nav class="primary-nav" aria-label="<?php esc_attr_e('القائمة الرئيسية', 'sirte-elc'); ?>">
-            <?php sirte_elc_default_menu(); ?>
+            <?php if (has_nav_menu('primary')) : ?>
+                <?php
+                wp_nav_menu([
+                    'theme_location' => 'primary',
+                    'container' => false,
+                    'menu_class' => 'menu',
+                    'menu_id' => 'primary-menu',
+                ]);
+                ?>
+            <?php else : ?>
+                <?php sirte_elc_default_menu(); ?>
+            <?php endif; ?>
         </nav>
 
         <a class="header-cta" href="<?php echo esc_url(sirte_elc_platform_url()); ?>">
@@ -53,17 +64,20 @@
 <?php
 function sirte_elc_default_menu(): void
 {
+    $is_front = is_front_page();
+
     $items = [
-        ['href' => '#about', 'label' => 'عن المركز'],
-        ['href' => '#faculties', 'label' => 'المقررات'],
-        ['href' => '#governance', 'label' => 'الحوكمة'],
-        ['href' => '#events', 'label' => 'الفعاليات'],
-        ['href' => '#support', 'label' => 'الدعم الفني'],
+        ['href' => $is_front ? '#about' : sirte_elc_page_url('about'), 'label' => 'عن المركز'],
+        ['href' => sirte_elc_page_url('academics'), 'label' => 'الكليات والمقررات'],
+        ['href' => sirte_elc_page_url('governance'), 'label' => 'الحوكمة والوثائق'],
+        ['href' => sirte_elc_page_url('news'), 'label' => 'الأخبار والفعاليات'],
+        ['href' => sirte_elc_page_url('guides'), 'label' => 'أدلة الاستخدام'],
+        ['href' => sirte_elc_page_url('contact'), 'label' => 'اتصل بنا'],
     ];
 
     echo '<ul id="primary-menu" class="menu">';
     foreach ($items as $item) {
-        printf('<li><a href="%s">%s</a></li>', esc_attr($item['href']), esc_html($item['label']));
+        printf('<li><a href="%s">%s</a></li>', esc_url($item['href']), esc_html($item['label']));
     }
     echo '</ul>';
 }

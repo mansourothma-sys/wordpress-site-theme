@@ -21,10 +21,12 @@
         <div>
             <h2>روابط سريعة</h2>
             <ul>
-                <li><a href="#about">عن المركز</a></li>
-                <li><a href="#faculties">المقررات الدراسية</a></li>
-                <li><a href="#governance">الحوكمة والوثائق</a></li>
-                <li><a href="#support">الدعم الفني</a></li>
+                <li><a href="<?php echo esc_url(sirte_elc_page_url('about')); ?>">عن المركز</a></li>
+                <li><a href="<?php echo esc_url(sirte_elc_page_url('academics')); ?>">الكليات والمقررات</a></li>
+                <li><a href="<?php echo esc_url(sirte_elc_page_url('governance')); ?>">الحوكمة والوثائق</a></li>
+                <li><a href="<?php echo esc_url(sirte_elc_page_url('news')); ?>">الأخبار والفعاليات</a></li>
+                <li><a href="<?php echo esc_url(sirte_elc_page_url('guides')); ?>">أدلة الاستخدام</a></li>
+                <li><a href="<?php echo esc_url(sirte_elc_page_url('contact')); ?>">اتصل بنا</a></li>
             </ul>
         </div>
         <div>

@@ -33,6 +33,13 @@ $documents = sirte_elc_documents();
                 </article>
             <?php endforeach; ?>
         </div>
+
+        <div class="section-more">
+            <a class="button button-outline" href="<?php echo esc_url(sirte_elc_page_url('governance')); ?>">
+                عرض صفحة الحوكمة الكاملة
+                <?php echo sirte_elc_icon('arrow'); ?>
+            </a>
+        </div>
     </div>
 </section>
 

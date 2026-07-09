@@ -41,3 +41,41 @@ function sirte_elc_section_heading(string $kicker, string $title, string $descri
     <?php
 }
 
+/**
+ * Inner-page hero with breadcrumb, used by every page-*.php template.
+ */
+function sirte_elc_page_header(string $kicker, string $title, string $description = ''): void
+{
+    ?>
+    <section class="page-hero">
+        <div class="container">
+            <nav class="breadcrumb" aria-label="<?php esc_attr_e('مسار التصفح', 'sirte-elc'); ?>">
+                <a href="<?php echo esc_url(home_url('/')); ?>">الرئيسية</a>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page"><?php echo esc_html($title); ?></span>
+            </nav>
+            <span class="kicker page-hero-kicker"><?php echo esc_html($kicker); ?></span>
+            <h1><?php echo esc_html($title); ?></h1>
+            <?php if ($description) : ?>
+                <p class="page-hero-lead"><?php echo esc_html($description); ?></p>
+            <?php endif; ?>
+        </div>
+    </section>
+    <?php
+}
+
+/**
+ * A single stat card driven by a real, countable number (never a guessed
+ * marketing figure) — e.g. count(sirte_elc_faculties()).
+ */
+function sirte_elc_counter_card(string $icon, int $number, string $suffix, string $label): void
+{
+    ?>
+    <article class="counter-card">
+        <span class="counter-icon"><?php echo sirte_elc_icon($icon); ?></span>
+        <strong class="counter-number" data-count-to="<?php echo (int) $number; ?>">0<?php echo esc_html($suffix); ?></strong>
+        <span><?php echo esc_html($label); ?></span>
+    </article>
+    <?php
+}
+

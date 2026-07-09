@@ -30,5 +30,11 @@ if (! defined('ABSPATH')) {
             </em>
         </a>
     </div>
+    <div class="container section-more">
+        <a class="button button-outline" href="<?php echo esc_url(sirte_elc_page_url('news')); ?>">
+            عرض الأخبار والفعاليات
+            <?php echo sirte_elc_icon('arrow'); ?>
+        </a>
+    </div>
 </section>
 
