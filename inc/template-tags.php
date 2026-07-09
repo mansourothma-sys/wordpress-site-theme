@@ -49,8 +49,8 @@ function sirte_elc_page_header(string $kicker, string $title, string $descriptio
     ?>
     <section class="page-hero">
         <div class="container">
-            <nav class="breadcrumb" aria-label="<?php esc_attr_e('مسار التصفح', 'sirte-elc'); ?>">
-                <a href="<?php echo esc_url(home_url('/')); ?>">الرئيسية</a>
+            <nav class="breadcrumb" aria-label="<?php echo esc_attr(sirte_elc_t('مسار التصفح', 'Breadcrumb')); ?>">
+                <a href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html(sirte_elc_t('الرئيسية', 'Home')); ?></a>
                 <span aria-hidden="true">/</span>
                 <span aria-current="page"><?php echo esc_html($title); ?></span>
             </nav>
