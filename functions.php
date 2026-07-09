@@ -9,7 +9,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('SIRTE_ELC_VERSION', '3.0.0');
+define('SIRTE_ELC_VERSION', '4.0.0');
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/seo.php';
@@ -64,30 +64,9 @@ function sirte_elc_enqueue_assets(): void
     );
 
     wp_enqueue_style(
-        'sirte-elc-main',
-        get_template_directory_uri() . '/assets/css/main.css',
+        'sirte-elc-theme',
+        get_template_directory_uri() . '/assets/css/theme.css',
         ['sirte-elc-fonts'],
-        SIRTE_ELC_VERSION
-    );
-
-    wp_enqueue_style(
-        'sirte-elc-visual-upgrade',
-        get_template_directory_uri() . '/assets/css/visual-upgrade.css',
-        ['sirte-elc-main'],
-        SIRTE_ELC_VERSION
-    );
-
-    wp_enqueue_style(
-        'sirte-elc-pages',
-        get_template_directory_uri() . '/assets/css/pages.css',
-        ['sirte-elc-visual-upgrade'],
-        SIRTE_ELC_VERSION
-    );
-
-    wp_enqueue_style(
-        'sirte-elc-modern',
-        get_template_directory_uri() . '/assets/css/modern.css',
-        ['sirte-elc-pages'],
         SIRTE_ELC_VERSION
     );
 
