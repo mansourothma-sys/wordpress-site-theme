@@ -9,8 +9,10 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('SIRTE_ELC_VERSION', '2.0.0');
+define('SIRTE_ELC_VERSION', '3.0.0');
 
+require_once get_template_directory() . '/inc/i18n.php';
+require_once get_template_directory() . '/inc/seo.php';
 require_once get_template_directory() . '/inc/theme-data.php';
 require_once get_template_directory() . '/inc/template-tags.php';
 
@@ -18,6 +20,7 @@ function sirte_elc_setup(): void
 {
     load_theme_textdomain('sirte-elc', get_template_directory() . '/languages');
 
+    add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script']);
     add_theme_support('custom-logo', [
@@ -34,11 +37,28 @@ function sirte_elc_setup(): void
 }
 add_action('after_setup_theme', 'sirte_elc_setup');
 
+/**
+ * Preconnect to the fonts CDN so the first render is not blocked on DNS/TLS.
+ */
+function sirte_elc_resource_hints(array $urls, string $relation_type): array
+{
+    if ('preconnect' === $relation_type) {
+        $urls[] = ['href' => 'https://fonts.googleapis.com'];
+        $urls[] = [
+            'href' => 'https://fonts.gstatic.com',
+            'crossorigin' => 'anonymous',
+        ];
+    }
+
+    return $urls;
+}
+add_filter('wp_resource_hints', 'sirte_elc_resource_hints', 10, 2);
+
 function sirte_elc_enqueue_assets(): void
 {
     wp_enqueue_style(
         'sirte-elc-fonts',
-        'https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap',
         [],
         null
     );
@@ -64,12 +84,24 @@ function sirte_elc_enqueue_assets(): void
         SIRTE_ELC_VERSION
     );
 
+    wp_enqueue_style(
+        'sirte-elc-modern',
+        get_template_directory_uri() . '/assets/css/modern.css',
+        ['sirte-elc-pages'],
+        SIRTE_ELC_VERSION
+    );
+
+    $script_args = [
+        'in_footer' => true,
+        'strategy' => 'defer',
+    ];
+
     wp_enqueue_script(
         'sirte-elc-main',
         get_template_directory_uri() . '/assets/js/main.js',
         [],
         SIRTE_ELC_VERSION,
-        true
+        $script_args
     );
 
     wp_enqueue_script(
@@ -77,7 +109,7 @@ function sirte_elc_enqueue_assets(): void
         get_template_directory_uri() . '/assets/js/scroll-reveal.js',
         [],
         SIRTE_ELC_VERSION,
-        true
+        $script_args
     );
 
     wp_enqueue_script(
@@ -85,7 +117,15 @@ function sirte_elc_enqueue_assets(): void
         get_template_directory_uri() . '/assets/js/interactions.js',
         [],
         SIRTE_ELC_VERSION,
-        true
+        $script_args
+    );
+
+    wp_enqueue_script(
+        'sirte-elc-theme-toggle',
+        get_template_directory_uri() . '/assets/js/theme-toggle.js',
+        [],
+        SIRTE_ELC_VERSION,
+        $script_args
     );
 }
 add_action('wp_enqueue_scripts', 'sirte_elc_enqueue_assets');
@@ -93,8 +133,8 @@ add_action('wp_enqueue_scripts', 'sirte_elc_enqueue_assets');
 function sirte_elc_document_title(array $title): array
 {
     if (is_front_page() || is_home()) {
-        $title['title'] = 'مركز التعليم الإلكتروني';
-        $title['site'] = 'جامعة سرت';
+        $title['title'] = sirte_elc_t('مركز التعليم الإلكتروني', 'E-Learning Center');
+        $title['site'] = sirte_elc_t('جامعة سرت', 'Sirte University');
     }
 
     return $title;
@@ -104,7 +144,7 @@ add_filter('document_title_parts', 'sirte_elc_document_title');
 function sirte_elc_pre_document_title(string $title): string
 {
     if (is_front_page() || is_home()) {
-        return 'مركز التعليم الإلكتروني - جامعة سرت';
+        return sirte_elc_t('مركز التعليم الإلكتروني - جامعة سرت', 'E-Learning Center - Sirte University');
     }
 
     return $title;
