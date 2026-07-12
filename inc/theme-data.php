@@ -33,7 +33,10 @@ function sirte_elc_faculties(): array
         ['name' => 'كلية تقنية المعلومات', 'logo' => $logos . 'it.png', 'url' => $base . '599'],
         ['name' => 'كلية هندسة الطاقة والتعدين مرادة', 'logo' => $logos . '6.png', 'url' => $base . '527'],
         ['name' => 'كلية العلوم الإنسانية والتطبيقية هراوة', 'logo' => $logos . '7.png', 'url' => $base . '621'],
-        ['name' => 'كلية الآداب والعلوم زمزم', 'logo' => $logos . '8.png', 'url' => $base . '634'],
+        // The previous URL used category 634, which belongs to "مرحلة إعداد الطب".
+        // Keep this item visible, but do not publish a misleading link until the
+        // official Moodle category ID for the Zamzam faculty is confirmed.
+        ['name' => 'كلية الآداب والعلوم زمزم', 'logo' => $logos . '8.png', 'url' => ''],
         ['name' => 'مرحلة إعداد الطب', 'logo' => $logos . '10.png', 'url' => $base . '634'],
     ];
 }

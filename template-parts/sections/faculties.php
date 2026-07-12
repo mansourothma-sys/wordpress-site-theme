@@ -29,16 +29,25 @@ $faculties = sirte_elc_faculties();
 
         <div class="faculty-grid" id="faculty-grid">
             <?php foreach ($faculties as $faculty) : ?>
-                <a class="faculty-card" href="<?php echo esc_url($faculty['url']); ?>" data-name="<?php echo esc_attr($faculty['name']); ?>">
+                <?php $sirte_elc_has_faculty_url = ! empty($faculty['url']); ?>
+                <<?php echo $sirte_elc_has_faculty_url ? 'a' : 'article'; ?>
+                    class="faculty-card<?php echo $sirte_elc_has_faculty_url ? '' : ' faculty-card-pending'; ?>"
+                    <?php if ($sirte_elc_has_faculty_url) : ?>href="<?php echo esc_url($faculty['url']); ?>"<?php endif; ?>
+                    data-name="<?php echo esc_attr($faculty['name']); ?>"
+                >
                     <span class="faculty-logo">
                         <img src="<?php echo esc_url($faculty['logo']); ?>" alt="<?php echo esc_attr('شعار ' . $faculty['name']); ?>" loading="lazy">
                     </span>
                     <span class="faculty-name"><?php echo esc_html($faculty['name']); ?></span>
                     <span class="faculty-link">
-                        دخول المقررات
-                        <?php echo sirte_elc_icon('arrow'); ?>
+                        <?php if ($sirte_elc_has_faculty_url) : ?>
+                            دخول المقررات
+                            <?php echo sirte_elc_icon('arrow'); ?>
+                        <?php else : ?>
+                            الرابط قيد التحقق
+                        <?php endif; ?>
                     </span>
-                </a>
+                </<?php echo $sirte_elc_has_faculty_url ? 'a' : 'article'; ?>>
             <?php endforeach; ?>
         </div>
 

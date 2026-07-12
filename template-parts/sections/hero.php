@@ -13,29 +13,71 @@ $hero_image = 'https://e-learning.su.edu.ly/pluginfile.php/1/theme_degrade/edito
 ?>
 <section class="hero-section" id="about" style="--hero-image: url('<?php echo esc_url($hero_image); ?>')">
     <div class="hero-overlay"></div>
-    <div class="container hero-content">
-        <span class="kicker hero-kicker"><?php echo esc_html(sirte_elc_t('البوابة الرسمية', 'Official Portal')); ?></span>
-        <h1><?php echo esc_html(sirte_elc_t('مركز التعليم الإلكتروني بجامعة سرت', 'E-Learning Center at Sirte University')); ?></h1>
-        <p class="hero-lead">
-            <?php
-            echo esc_html(sirte_elc_t(
-                'مؤسسة تقنية متخصصة أنشئت بموجب قرار وزير التعليم العالي والبحث العلمي رقم (1620) لسنة 2022م، وتهدف إلى قيادة التحول الرقمي في العملية التعليمية داخل الجامعة.',
-                'A specialized technology institution established by Decision No. (1620) of 2022 of the Minister of Higher Education and Scientific Research, leading the digital transformation of teaching and learning across the university.'
-            ));
-            ?>
-        </p>
-        <div class="hero-actions">
-            <a class="button button-primary" href="<?php echo esc_url(sirte_elc_platform_url()); ?>">
-                <?php echo sirte_elc_icon('graduation'); ?>
-                <span><?php echo esc_html(sirte_elc_t('ادخل إلى منصتك التعليمية', 'Enter your learning platform')); ?></span>
-            </a>
-            <a class="button button-light" href="#support">
-                <?php echo sirte_elc_icon('message'); ?>
-                <span><?php echo esc_html(sirte_elc_t('الدعم الفني', 'Technical Support')); ?></span>
-            </a>
+    <div class="container hero-layout">
+        <div class="hero-content">
+            <span class="kicker hero-kicker"><?php echo esc_html(sirte_elc_t('البوابة الرسمية لجامعة سرت', 'The official Sirte University portal')); ?></span>
+            <h1><?php echo esc_html(sirte_elc_t('تعليم رقمي أقرب، أذكى، وأكثر أثرًا', 'Digital learning that is closer, smarter, and more impactful')); ?></h1>
+            <p class="hero-lead">
+                <?php
+                echo esc_html(sirte_elc_t(
+                    'منصة موحدة للمقررات الإلكترونية، وأدلة الاستخدام، والوثائق التنظيمية، والدعم الفني للطلاب وأعضاء هيئة التدريس.',
+                    'One gateway for online courses, user guides, governance documents, and technical support for students and faculty.'
+                ));
+                ?>
+            </p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="<?php echo esc_url(sirte_elc_platform_url()); ?>">
+                    <?php echo sirte_elc_icon('graduation'); ?>
+                    <span><?php echo esc_html(sirte_elc_t('الدخول إلى المنصة', 'Enter the platform')); ?></span>
+                </a>
+                <a class="button button-light" href="<?php echo esc_url(sirte_elc_page_url('guides')); ?>">
+                    <?php echo sirte_elc_icon('book'); ?>
+                    <span><?php echo esc_html(sirte_elc_t('أدلة الاستخدام', 'User guides')); ?></span>
+                </a>
+            </div>
+            <div class="hero-trust" aria-label="<?php echo esc_attr(sirte_elc_t('مزايا البوابة', 'Portal highlights')); ?>">
+                <span><?php echo sirte_elc_icon('shield'); ?><?php echo esc_html(sirte_elc_t('بوابة رسمية', 'Official portal')); ?></span>
+                <span><?php echo sirte_elc_icon('users'); ?><?php echo esc_html(sirte_elc_t('للطلاب وأعضاء هيئة التدريس', 'For students and faculty')); ?></span>
+            </div>
         </div>
+
+        <aside class="hero-panel" aria-label="<?php echo esc_attr(sirte_elc_t('وصول سريع', 'Quick access')); ?>">
+            <div class="hero-panel-heading">
+                <span class="hero-panel-icon"><?php echo sirte_elc_icon('spark'); ?></span>
+                <div>
+                    <strong><?php echo esc_html(sirte_elc_t('وصول سريع', 'Quick access')); ?></strong>
+                    <small><?php echo esc_html(sirte_elc_t('ابدأ من وجهتك مباشرة', 'Go straight to your destination')); ?></small>
+                </div>
+            </div>
+            <div class="hero-quick-links">
+                <a href="<?php echo esc_url(sirte_elc_page_url('academics')); ?>">
+                    <span><?php echo sirte_elc_icon('graduation'); ?></span>
+                    <strong><?php echo esc_html(sirte_elc_t('الكليات والمقررات', 'Faculties & courses')); ?></strong>
+                    <?php echo sirte_elc_icon('arrow'); ?>
+                </a>
+                <a href="<?php echo esc_url(sirte_elc_page_url('governance')); ?>">
+                    <span><?php echo sirte_elc_icon('shield'); ?></span>
+                    <strong><?php echo esc_html(sirte_elc_t('الوثائق والحوكمة', 'Documents & governance')); ?></strong>
+                    <?php echo sirte_elc_icon('arrow'); ?>
+                </a>
+                <a href="#support">
+                    <span><?php echo sirte_elc_icon('message'); ?></span>
+                    <strong><?php echo esc_html(sirte_elc_t('الدعم الفني', 'Technical support')); ?></strong>
+                    <?php echo sirte_elc_icon('arrow'); ?>
+                </a>
+            </div>
+        </aside>
     </div>
 </section>
+
+<div class="service-ribbon" aria-label="<?php echo esc_attr(sirte_elc_t('خدمات المركز', 'Center services')); ?>">
+    <div class="container service-ribbon-grid">
+        <div><span><?php echo sirte_elc_icon('book'); ?></span><strong><?php echo esc_html(sirte_elc_t('مقررات إلكترونية', 'Online courses')); ?></strong></div>
+        <div><span><?php echo sirte_elc_icon('users'); ?></span><strong><?php echo esc_html(sirte_elc_t('تدريب وتطوير', 'Training & development')); ?></strong></div>
+        <div><span><?php echo sirte_elc_icon('message'); ?></span><strong><?php echo esc_html(sirte_elc_t('دعم فني', 'Technical support')); ?></strong></div>
+        <div><span><?php echo sirte_elc_icon('shield'); ?></span><strong><?php echo esc_html(sirte_elc_t('حوكمة رقمية', 'Digital governance')); ?></strong></div>
+    </div>
+</div>
 
 <section class="section about-band">
     <div class="container about-grid">

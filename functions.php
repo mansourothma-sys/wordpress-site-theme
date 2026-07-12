@@ -9,7 +9,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define('SIRTE_ELC_VERSION', '4.0.0');
+define('SIRTE_ELC_VERSION', '4.1.0');
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/seo.php';
